@@ -5,29 +5,33 @@ import java.awt.Graphics2D;
 
 public class Block implements Element {
 
-	private final String text;
+	private final Text text;
 
 	public Block(String text) {
+		this(new Text(text));
+	}
+
+	public Block(Text text) {
 		this.text = text;
 	}
 
 	@Override
 	public int getWidth(Graphics2D g) {
-		return g.getFontMetrics().stringWidth(text) + 20;
+		return text.getWidth(g) + 20;
 	}
 
 	@Override
 	public int getHeight(Graphics2D g) {
-		return g.getFontMetrics().getHeight() + 10;
+		return text.getHeight(g) + 10;
 	}
 
 	@Override
 	public void paint(Graphics2D g, int width, int height) {
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, width - 1, height - 1);
-		int x = (width - g.getFontMetrics().stringWidth(text)) / 2;
-		int y = (height + g.getFontMetrics().getAscent() * 3 / 4) / 2;
-		g.drawString(text, x, y);
+		int x = (width - text.getWidth(g)) / 2;
+		int y = (height - text.getHeight(g)) / 2;
+		text.paint(g, x, y);
 	}
 
 }

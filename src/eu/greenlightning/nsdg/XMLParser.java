@@ -56,15 +56,19 @@ public class XMLParser implements AutoCloseable {
 		}
 		reader.nextEvent(); // END_ELEMENT
 		skip();
+		return new Block(trimLines(text.toString()));
+	}
+
+	private String trimLines(String input) {
 		StringBuilder result = new StringBuilder();
-		String[] parts = text.toString().split("\n");
+		String[] parts = input.trim().split("\n");
 		for (int i = 0; i < parts.length; i++) {
 			result.append(parts[i].trim());
 			if (i < parts.length - 1) {
 				result.append('\n');
 			}
 		}
-		return new Block(result.toString().trim());
+		return result.toString();
 	}
 
 	private void skip() throws XMLStreamException {
