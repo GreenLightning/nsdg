@@ -49,6 +49,9 @@ public class XMLParser implements AutoCloseable {
 				case "branch":
 					children.add(parseBranch());
 					break;
+				case "loop":
+					children.add(parseLoop());
+					break;
 			}
 		}
 		if (children.size() == 1) {
@@ -107,6 +110,24 @@ public class XMLParser implements AutoCloseable {
 		reader.nextEvent(); // END_ELEMENT branch
 		skip();
 		return new Branch(condition, left, right);
+	}
+
+	private Element parseLoop() throws XMLStreamException {
+		Attribute topAttribute = reader.peek().asStartElement()
+			.getAttributeByName(new QName("top"));
+		String top = topAttribute == null ? "" : topAttribute.getValue();
+		Attribute sideAttribute = reader.peek().asStartElement().getAttributeByName(
+			new QName("side"));
+		String side = sideAttribute == null ? "" : sideAttribute.getValue();
+		Attribute bottomAttribute = reader.peek().asStartElement().getAttributeByName(
+			new QName("bottom"));
+		String bottom = bottomAttribute == null ? "" : bottomAttribute.getValue();
+		reader.nextEvent();
+		skip();
+		Element child = parseChild();
+		reader.nextEvent();
+		skip();
+		return new InfiniteLoop(top, side, bottom, child);
 	}
 
 	private void skip() throws XMLStreamException {

@@ -18,6 +18,7 @@
 		<xs:choice>
 			<xs:element name="block" type="xs:token" />
 			<xs:element name="branch" type="branch" />
+			<xs:element name="loop" type="loop" />
 		</xs:choice>
 	</xs:group>
 
@@ -33,6 +34,26 @@
 		<xs:complexContent>
 			<xs:extension base="parent">
 				<xs:attribute name="label" type="xs:token" default="" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="loop">
+		<xs:complexContent>
+			<xs:extension base="parent">
+				<xs:attribute name="type" default="test-first">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="test-first" />
+							<xs:enumeration value="test-last" />
+							<xs:enumeration value="infinite" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="condition" type="xs:token" />
+				<xs:attribute name="top" type="xs:token" />
+				<xs:attribute name="side" type="xs:token" />
+				<xs:attribute name="bottom" type="xs:token" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>

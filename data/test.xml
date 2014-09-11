@@ -13,4 +13,8 @@
 			<block>Test 2</block>
 		</right>
 	</branch>
+	<loop type="infinite" top="top" side="example" bottom="text">
+		<block>Test 3</block>
+		<block>Test 4</block>
+	</loop>
 </diagram>
