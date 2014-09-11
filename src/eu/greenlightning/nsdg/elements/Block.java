@@ -7,6 +7,10 @@ public class Block implements Element {
 
 	private final Text text;
 
+	public Block() {
+		this("%");
+	}
+
 	public Block(String text) {
 		this(new Text(text));
 	}

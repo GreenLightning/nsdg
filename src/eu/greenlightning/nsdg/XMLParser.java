@@ -7,7 +7,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.namespace.QName;
 import javax.xml.stream.*;
+import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.XMLEvent;
 
 import eu.greenlightning.nsdg.elements.*;
@@ -39,7 +41,15 @@ public class XMLParser implements AutoCloseable {
 	private Element parseChild() throws XMLStreamException {
 		List<Element> children = new ArrayList<>();
 		while (reader.peek().getEventType() != XMLEvent.END_ELEMENT) {
-			children.add(parseBlock());
+			String name = reader.peek().asStartElement().getName().getLocalPart();
+			switch (name) {
+				case "block":
+					children.add(parseBlock());
+					break;
+				case "branch":
+					children.add(parseBranch());
+					break;
+			}
 		}
 		if (children.size() == 1) {
 			return children.get(0);
@@ -50,11 +60,11 @@ public class XMLParser implements AutoCloseable {
 
 	private Element parseBlock() throws XMLStreamException {
 		StringBuilder text = new StringBuilder();
-		reader.nextEvent(); // START_ELEMENT
+		reader.nextEvent(); // START_ELEMENT block
 		while (reader.peek().getEventType() == XMLEvent.CHARACTERS) {
 			text.append(reader.nextEvent().toString());
 		}
-		reader.nextEvent(); // END_ELEMENT
+		reader.nextEvent(); // END_ELEMENT block
 		skip();
 		return new Block(trimLines(text.toString()));
 	}
@@ -69,6 +79,34 @@ public class XMLParser implements AutoCloseable {
 			}
 		}
 		return result.toString();
+	}
+
+	private Element parseBranch() throws XMLStreamException {
+		Attribute conditionAttribute = reader.peek().asStartElement().getAttributeByName(
+			new QName("condition"));
+		String condition = conditionAttribute == null ? "" : conditionAttribute.getValue();
+		reader.nextEvent(); // START_ELEMENT branch
+		skip();
+		Labelled left = new Labelled(), right = new Labelled();
+		while (reader.peek().isStartElement()) {
+			boolean isLeft = reader.peek().asStartElement().getName().getLocalPart().equals("left");
+			Attribute labelAttribute = reader.peek().asStartElement().getAttributeByName(
+				new QName("label"));
+			String label = labelAttribute == null ? "" : labelAttribute.getValue();
+			reader.nextEvent(); // START_ELEMENT left / right
+			skip();
+			Element child = reader.peek().isStartElement() ? parseChild() : new Block();
+			reader.nextEvent(); // END_ELEMENT left / right
+			skip();
+			if (isLeft) {
+				left = new Labelled(label, child);
+			} else {
+				right = new Labelled(label, child);
+			}
+		}
+		reader.nextEvent(); // END_ELEMENT branch
+		skip();
+		return new Branch(condition, left, right);
 	}
 
 	private void skip() throws XMLStreamException {

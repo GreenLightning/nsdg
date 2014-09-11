@@ -1,11 +1,14 @@
 <?xml version="1.0" ?>
 <diagram>
 	<block>
-		Super long block number 1!
+		Block!
 	</block>
-	<block>
-		Block 2!
-		Another line!
-		And another!
-	</block>
+	<branch condition="x == 0">
+		<left label="Yes">
+			<block>Test 1</block>
+		</left>
+		<right label="No">
+			<block>Test 2</block>
+		</right>
+	</branch>
 </diagram>
