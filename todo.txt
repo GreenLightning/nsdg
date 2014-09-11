@@ -4,5 +4,3 @@
 - Examples
 - Ant script
 - Diagram title
-- Schema
-- Schema validation

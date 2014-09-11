@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+
+<xs:schema xmlns="http://greenlightning.eu/nsdg"
+	targetNamespace="http://greenlightning.eu/nsdg" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
+	elementFormDefault="qualified">
+
+	<xs:element name="diagram" type="parent" />
+
+	<xs:complexType name="parent">
+		<xs:sequence>
+			<xs:group ref="child" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:group name="child">
+		<xs:choice>
+			<xs:element name="block" type="xs:token" />
+			<xs:element name="branch" type="branch" />
+		</xs:choice>
+	</xs:group>
+
+	<xs:complexType name="branch">
+		<xs:sequence>
+			<xs:element name="left" type="labelled" />
+			<xs:element name="right" type="labelled" />
+		</xs:sequence>
+		<xs:attribute name="condition" type="xs:token" />
+	</xs:complexType>
+
+	<xs:complexType name="labelled">
+		<xs:complexContent>
+			<xs:extension base="parent">
+				<xs:attribute name="label" type="xs:token" default="" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>
