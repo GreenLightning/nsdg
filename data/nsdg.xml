@@ -6,7 +6,15 @@
 	xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
 	elementFormDefault="qualified">
 
-	<xs:element name="diagram" type="parent" />
+	<xs:element name="diagram">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="parent">
+					<xs:attribute name="title" type="xs:token"></xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
 
 	<xs:complexType name="parent">
 		<xs:sequence>
@@ -43,7 +51,7 @@
 			<xs:extension base="parent">
 				<xs:attribute name="type" default="test-first">
 					<xs:simpleType>
-						<xs:restriction base="xs:string">
+						<xs:restriction base="xs:token">
 							<xs:enumeration value="test-first" />
 							<xs:enumeration value="test-last" />
 							<xs:enumeration value="infinite" />

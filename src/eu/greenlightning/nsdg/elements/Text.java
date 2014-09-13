@@ -1,5 +1,6 @@
 package eu.greenlightning.nsdg.elements;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Text {
@@ -23,6 +24,7 @@ public class Text {
 	}
 
 	public void paint(Graphics2D g, int x, int y) {
+		g.setColor(Color.BLACK);
 		int width = getWidth(g);
 		int yOffset = g.getFontMetrics().getAscent();
 		for (String part : text) {

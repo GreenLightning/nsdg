@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<diagram xmlns="http://greenlightning.eu/nsdg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<diagram title="Test" xmlns="http://greenlightning.eu/nsdg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://greenlightning.eu/nsdg nsdg.xml">
 	<block>
 		Block!

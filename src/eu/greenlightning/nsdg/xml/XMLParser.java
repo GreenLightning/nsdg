@@ -30,8 +30,9 @@ public class XMLParser implements AutoCloseable {
 
 	public Element parseDiagram() throws ParserException, XMLStreamException {
 		startDocument();
+		String title = getAttribute("title", null);
 		startElement("diagram");
-		Diagram diagram = new Diagram(parseChild());
+		Diagram diagram = new Diagram(title, parseChild());
 		endElement("diagram");
 		endDocument();
 		return diagram;
