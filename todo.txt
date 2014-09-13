@@ -4,3 +4,4 @@
 - Examples
 - Ant script
 - Diagram title
+- Tests

@@ -7,6 +7,8 @@ import java.nio.file.*;
 import javax.xml.stream.XMLStreamException;
 
 import eu.greenlightning.nsdg.elements.Element;
+import eu.greenlightning.nsdg.xml.ParserException;
+import eu.greenlightning.nsdg.xml.XMLParser;
 
 public class NassiShneidermanDiagramGenerator {
 
@@ -28,6 +30,9 @@ public class NassiShneidermanDiagramGenerator {
 
 		try (XMLParser parser = new XMLParser(path)) {
 			diagram = parser.parseDiagram();
+		} catch (ParserException e) {
+			System.out.println(e.getMessage());
+			return;
 		} catch (IOException | XMLStreamException e) {
 			System.out.println("An error occured while parsing the xml file.");
 			System.out.println();
