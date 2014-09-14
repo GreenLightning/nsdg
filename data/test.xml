@@ -16,7 +16,7 @@
 		<block>Test 3</block>
 		<block>Test 4</block>
 	</loop>
-	<loop condition="for int i = 0; i &lt; 5; i++" side="do">
+	<loop condition="for int i = 0; i \l 5; i++" side="do">
 		<block>Test 5</block>
 		<block>Test 6</block>
 	</loop>

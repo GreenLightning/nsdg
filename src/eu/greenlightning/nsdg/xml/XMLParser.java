@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.*;
@@ -87,7 +88,7 @@ public class XMLParser implements AutoCloseable {
 			next();
 		}
 		endElement(name);
-		return trimLines(text.toString());
+		return replaceEscapeSequences(trimLines(text.toString()));
 	}
 
 	private String trimLines(String input) {
@@ -276,7 +277,19 @@ public class XMLParser implements AutoCloseable {
 
 	private String getAttribute(String name, String alternative) throws XMLStreamException {
 		Attribute attribute = look().asStartElement().getAttributeByName(new QName(name));
-		return (attribute == null) ? alternative : attribute.getValue();
+		return (attribute == null) ? alternative : replaceEscapeSequences(attribute.getValue());
+	}
+
+	private String replaceEscapeSequences(String data) {
+		data = data.replaceAll("(?<!\\\\)\\\\t", Matcher.quoteReplacement("\t"));
+		data = data.replaceAll("(?<!\\\\)\\\\b", Matcher.quoteReplacement("\b"));
+		data = data.replaceAll("(?<!\\\\)\\\\n", Matcher.quoteReplacement("\n"));
+		data = data.replaceAll("(?<!\\\\)\\\\r", Matcher.quoteReplacement("\r"));
+		data = data.replaceAll("(?<!\\\\)\\\\f", Matcher.quoteReplacement("\f"));
+		data = data.replaceAll("(?<!\\\\)\\\\g", Matcher.quoteReplacement(">"));
+		data = data.replaceAll("(?<!\\\\)\\\\l", Matcher.quoteReplacement("<"));
+		data = data.replaceAll("\\\\\\\\", Matcher.quoteReplacement("\\"));
+		return data;
 	}
 
 	private void skip() throws XMLStreamException {
