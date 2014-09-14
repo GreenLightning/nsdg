@@ -4,3 +4,4 @@
 - Examples
 - Ant script
 - Tests
+- Escape sequences in attributes

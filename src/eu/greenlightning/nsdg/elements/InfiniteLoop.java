@@ -44,9 +44,6 @@ public class InfiniteLoop implements Element {
 		int bottomHeight = (int) (bottomPercentage * height);
 		int sideWidth = (int) (sidePercentage * width);
 		g.drawRect(0, 0, width - 1, height - 1);
-		g.drawLine(width - 1, topHeight, sideWidth, topHeight);
-		g.drawLine(sideWidth, topHeight, sideWidth, height - bottomHeight);
-		g.drawLine(sideWidth, height - bottomHeight, width - 1, height - bottomHeight);
 		top.paint(g, (width - top.getWidth(g)) / 2, (topHeight - top.getHeight(g)) / 2);
 		side.paint(g, (sideWidth - side.getWidth(g)) / 2, topHeight
 			+ (height - topHeight - bottomHeight - side.getHeight(g)) / 2);

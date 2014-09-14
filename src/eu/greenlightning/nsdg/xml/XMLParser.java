@@ -118,6 +118,30 @@ public class XMLParser implements AutoCloseable {
 	}
 
 	private Element parseLoop() throws ParserException, XMLStreamException {
+		String type = getAttribute("type", "test-first");
+		switch (type) {
+			case "test-first":
+				return parseTestLoop(true);
+			case "test-last":
+				return parseTestLoop(false);
+			case "infinite":
+				return parseInfiniteLoop();
+			default:
+				throw new ParserException(
+					"Loop type must be 'test-first', 'test-last' or 'infinite'.");
+		}
+	}
+
+	private Element parseTestLoop(boolean testFirst) throws ParserException, XMLStreamException {
+		String condition = getAttribute("condition");
+		String side = getAttribute("side");
+		startElement("loop");
+		Element child = parseChild();
+		endElement("loop");
+		return new TestLoop(testFirst, condition, side, child);
+	}
+
+	private Element parseInfiniteLoop() throws ParserException, XMLStreamException {
 		String top = getAttribute("top");
 		String side = getAttribute("side");
 		String bottom = getAttribute("bottom");
@@ -134,7 +158,7 @@ public class XMLParser implements AutoCloseable {
 		skip();
 	}
 
-	private void checkIsStartOfDocument() throws XMLStreamException, ParserException {
+	private void checkIsStartOfDocument() throws ParserException, XMLStreamException {
 		if (!look().isStartDocument()) {
 			throw new ParserException("Expected start of document, but found "
 				+ getEventDescription() + ".");
@@ -148,7 +172,7 @@ public class XMLParser implements AutoCloseable {
 		skip();
 	}
 
-	private void checkIsEndOfDocument() throws XMLStreamException, ParserException {
+	private void checkIsEndOfDocument() throws ParserException, XMLStreamException {
 		if (!look().isEndDocument()) {
 			throw new ParserException("Expected end of document, but found "
 				+ getEventDescription() + ".");
@@ -164,14 +188,14 @@ public class XMLParser implements AutoCloseable {
 		return event;
 	}
 
-	private void checkIsStartElement(String name) throws XMLStreamException, ParserException {
+	private void checkIsStartElement(String name) throws ParserException, XMLStreamException {
 		if (!look().isStartElement()) {
 			throw new ParserException("Expected start of " + name + ", but found "
 				+ getEventDescription() + ".");
 		}
 	}
 
-	private void checkStartElementHasName(String name) throws XMLStreamException, ParserException {
+	private void checkStartElementHasName(String name) throws ParserException, XMLStreamException {
 		String elementName = getNameOfStartElement();
 		if (!elementName.equals(name)) {
 			throw new ParserException("Expected start of " + name + ", but found start of "
@@ -188,7 +212,7 @@ public class XMLParser implements AutoCloseable {
 		return event;
 	}
 
-	private void checkIsEndElement(String name) throws XMLStreamException, ParserException {
+	private void checkIsEndElement(String name) throws ParserException, XMLStreamException {
 		if (!look().isEndElement()) {
 			throw new ParserException("Expected end of " + name + ", but found "
 				+ getEventDescription() + ".");
