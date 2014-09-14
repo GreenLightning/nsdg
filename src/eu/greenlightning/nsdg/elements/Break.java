@@ -3,37 +3,28 @@ package eu.greenlightning.nsdg.elements;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Block implements Element {
+public class Break extends Block {
 
-	protected final Text text;
-
-	public Block() {
-		this("%");
+	public Break(String text) {
+		super(text);
 	}
 
-	public Block(String text) {
-		this(new Text(text));
-	}
-
-	public Block(Text text) {
-		this.text = text;
+	public Break(Text text) {
+		super(text);
 	}
 
 	@Override
 	public int getWidth(Graphics2D g) {
-		return text.getWidth(g) + 20;
-	}
-
-	@Override
-	public int getHeight(Graphics2D g) {
-		return text.getHeight(g) + 10;
+		return 10 + super.getWidth(g);
 	}
 
 	@Override
 	public void paint(Graphics2D g, int width, int height) {
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, width - 1, height - 1);
-		int x = (width - text.getWidth(g)) / 2;
+		g.drawLine(10, 0, 0, height / 2);
+		g.drawLine(0, height / 2, 10, height - 1);
+		int x = 10 + (width - 10 - text.getWidth(g)) / 2;
 		int y = (height - text.getHeight(g)) / 2;
 		text.paint(g, x, y);
 	}

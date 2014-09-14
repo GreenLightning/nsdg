@@ -49,6 +49,9 @@ public class XMLParser implements AutoCloseable {
 				case "procedure":
 					children.add(parseProcedure());
 					break;
+				case "break":
+					children.add(parseBreak());
+					break;
 				case "branch":
 					children.add(parseBranch());
 					break;
@@ -68,6 +71,10 @@ public class XMLParser implements AutoCloseable {
 
 	private Element parseProcedure() throws ParserException, XMLStreamException {
 		return new Procedure(parseTextElement("procedure"));
+	}
+
+	private Element parseBreak() throws ParserException, XMLStreamException {
+		return new Break(parseTextElement("break"));
 	}
 
 	private String parseTextElement(String name) throws ParserException, XMLStreamException {

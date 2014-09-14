@@ -26,6 +26,7 @@
 		<xs:choice>
 			<xs:element name="block" type="xs:token" />
 			<xs:element name="procedure" type="xs:token" />
+			<xs:element name="break" type="xs:token" />
 			<xs:element name="branch" type="branch" />
 			<xs:element name="loop" type="loop" />
 		</xs:choice>

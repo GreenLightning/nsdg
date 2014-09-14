@@ -9,6 +9,7 @@
 		</left>
 		<right label="No">
 			<procedure>Procedure</procedure>
+			<break>Break</break>
 		</right>
 	</branch>
 	<loop type="infinite" top="top" side="example" bottom="text">
