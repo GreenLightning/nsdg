@@ -46,6 +46,9 @@ public class XMLParser implements AutoCloseable {
 				case "block":
 					children.add(parseBlock());
 					break;
+				case "procedure":
+					children.add(parseProcedure());
+					break;
 				case "branch":
 					children.add(parseBranch());
 					break;
@@ -60,16 +63,24 @@ public class XMLParser implements AutoCloseable {
 	}
 
 	private Element parseBlock() throws ParserException, XMLStreamException {
+		return new Block(parseTextElement("block"));
+	}
+
+	private Element parseProcedure() throws ParserException, XMLStreamException {
+		return new Procedure(parseTextElement("procedure"));
+	}
+
+	private String parseTextElement(String name) throws ParserException, XMLStreamException {
 		StringBuilder text = new StringBuilder();
-		startElement("block");
+		startElement(name);
 		while (is(CHARACTERS) || is(COMMENT)) {
 			if (is(CHARACTERS)) {
 				text.append(look().toString());
 			}
 			next();
 		}
-		endElement("block");
-		return new Block(trimLines(text.toString()));
+		endElement(name);
+		return trimLines(text.toString());
 	}
 
 	private String trimLines(String input) {
