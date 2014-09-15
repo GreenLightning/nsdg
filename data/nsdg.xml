@@ -28,6 +28,7 @@
 			<xs:element name="procedure" type="xs:token" />
 			<xs:element name="break" type="xs:token" />
 			<xs:element name="branch" type="branch" />
+			<xs:element name="switch" type="switch" />
 			<xs:element name="loop" type="loop" />
 		</xs:choice>
 	</xs:group>
@@ -38,6 +39,14 @@
 			<xs:element name="right" type="labelled" minOccurs="0" />
 		</xs:sequence>
 		<xs:attribute name="condition" type="xs:token" />
+	</xs:complexType>
+	
+	<xs:complexType name="switch">
+		<xs:sequence>
+			<xs:element name="case" type="labelled" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="default" type="labelled" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="expression" type="xs:token" />
 	</xs:complexType>
 
 	<xs:complexType name="labelled">

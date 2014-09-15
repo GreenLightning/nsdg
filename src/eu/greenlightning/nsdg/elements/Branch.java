@@ -48,14 +48,12 @@ public class Branch implements Element {
 
 	@Override
 	public void paint(Graphics2D g, int width, int height) {
-		double leftPercentage = left.getChild().getWidth(g)
-			/ (double) (left.getChild().getWidth(g) + right.getChild().getWidth(g));
+		double leftPercentage = left.getChild().getWidth(g) / (double) getBlockWidth(g);
 		int center = (int) (leftPercentage * width);
 		int titleHeight = getTitleHeight(g);
 		g.drawRect(0, 0, width - 1, height - 1);
 		g.drawLine(0, 0, center, titleHeight);
 		g.drawLine(center, titleHeight, width - 1, 0);
-		g.drawLine(0, titleHeight, width - 1, titleHeight);
 		condition.paint(g, center - (int) (leftPercentage * condition.getWidth(g)), 5);
 		int labelOffset = 5 + condition.getHeight(g) + 5;
 		left.getLabel().paint(g, 10, labelOffset);

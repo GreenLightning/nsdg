@@ -56,6 +56,9 @@ public class XMLParser implements AutoCloseable {
 				case "branch":
 					children.add(parseBranch());
 					break;
+				case "switch":
+					children.add(parseSwitch());
+					break;
 				case "loop":
 					children.add(parseLoop());
 					break;
@@ -126,6 +129,31 @@ public class XMLParser implements AutoCloseable {
 		endElement("branch");
 		return new Branch(condition, left == null ? new Labelled() : left,
 			right == null ? new Labelled() : right);
+	}
+
+	private Element parseSwitch() throws ParserException, XMLStreamException {
+		String expression = getAttribute("expression");
+		startElement("switch");
+		List<Labelled> cases = new ArrayList<>();
+		Labelled defaultLabelled = null;
+		while (look().isStartElement()) {
+			String name = getNameOfStartElement();
+			if (name.equals("case")) {
+				cases.add(parseLabelled("case"));
+			} else if (name.equals("default")) {
+				if (defaultLabelled != null) {
+					throw new ParserException("Duplicate default case.");
+				}
+				defaultLabelled = parseLabelled("default");
+			} else {
+				throw new ParserException("Unkown switch child: " + name);
+			}
+		}
+		endElement("switch");
+		if (cases.isEmpty()) {
+			throw new ParserException("Switch needs at least one case.");
+		}
+		return new Switch(expression, cases, defaultLabelled);
 	}
 
 	private Labelled parseLabelled(String name) throws ParserException, XMLStreamException {

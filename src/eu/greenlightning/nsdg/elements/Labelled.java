@@ -1,5 +1,7 @@
 package eu.greenlightning.nsdg.elements;
 
+import java.awt.Graphics2D;
+
 public class Labelled {
 
 	private final Text label;
@@ -26,5 +28,8 @@ public class Labelled {
 		return child;
 	}
 
+	public int getWidth(Graphics2D g) {
+		return Math.max(5 + label.getWidth(g) + 5, child.getWidth(g));
+	}
 
 }

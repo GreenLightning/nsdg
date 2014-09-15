@@ -24,8 +24,11 @@ public class Text {
 	}
 
 	public void paint(Graphics2D g, int x, int y) {
-		g.setColor(Color.BLACK);
 		int width = getWidth(g);
+		int height = getHeight(g);
+		g.setColor(Color.WHITE);
+		g.fillRect(x, y, width, height);
+		g.setColor(Color.BLACK);
 		int yOffset = g.getFontMetrics().getAscent();
 		for (String part : text) {
 			int xOffset = (width - g.getFontMetrics().stringWidth(part)) / 2;
