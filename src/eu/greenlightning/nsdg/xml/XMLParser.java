@@ -159,7 +159,7 @@ public class XMLParser implements AutoCloseable {
 	private Labelled parseLabelled(String name) throws ParserException, XMLStreamException {
 		String label = getAttribute("label");
 		startElement(name);
-		Element child = look().isStartElement() ? parseChild() : new Block();
+		Element child = look().isStartElement() ? parseChild() : new Empty();
 		endElement(name);
 		return new Labelled(label, child);
 	}

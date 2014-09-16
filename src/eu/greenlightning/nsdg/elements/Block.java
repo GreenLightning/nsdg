@@ -7,10 +7,6 @@ public class Block implements Element {
 
 	protected final Text text;
 
-	public Block() {
-		this("%");
-	}
-
 	public Block(String text) {
 		this(new Text(text));
 	}
@@ -33,7 +29,7 @@ public class Block implements Element {
 	public void paint(Graphics2D g, int width, int height) {
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, width - 1, height - 1);
-		int x = (width - text.getWidth(g)) / 2;
+		int x = 10;
 		int y = (height - text.getHeight(g)) / 2;
 		text.paint(g, x, y);
 	}

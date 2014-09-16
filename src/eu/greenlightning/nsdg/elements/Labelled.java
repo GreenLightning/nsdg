@@ -8,7 +8,7 @@ public class Labelled {
 	private final Element child;
 
 	public Labelled() {
-		this("", new Block());
+		this("", new Empty());
 	}
 
 	public Labelled(String label, Element child) {
