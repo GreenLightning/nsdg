@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<diagram title="Bubble Sort" xmlns="http://greenlightning.eu/nsdg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://greenlightning.eu/nsdg ../nsdg.xml">
+	<loop condition="für i = n bis 0">
+		<loop condition="für j = 1 bis i">
+			<branch condition="a[j - 1] \l a[j]">
+				<left label="ja">
+					<block>
+						h = a[j - 1]
+						a[j - 1] = a[j]
+						a[j] = h
+					</block>
+				</left>
+				<right label="nein" />
+			</branch>
+		</loop>
+	</loop>
+</diagram>
