@@ -314,6 +314,7 @@ public class XMLParser implements AutoCloseable {
 		data = data.replaceAll("(?<!\\\\)\\\\n", Matcher.quoteReplacement("\n"));
 		data = data.replaceAll("(?<!\\\\)\\\\r", Matcher.quoteReplacement("\r"));
 		data = data.replaceAll("(?<!\\\\)\\\\f", Matcher.quoteReplacement("\f"));
+		data = data.replaceAll("(?<!\\\\)\\\\a", Matcher.quoteReplacement("&"));
 		data = data.replaceAll("(?<!\\\\)\\\\g", Matcher.quoteReplacement(">"));
 		data = data.replaceAll("(?<!\\\\)\\\\l", Matcher.quoteReplacement("<"));
 		data = data.replaceAll("\\\\\\\\", Matcher.quoteReplacement("\\"));
