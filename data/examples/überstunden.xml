@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+
+<diagram title="Überstunden" xmlns="http://greenlightning.eu/nsdg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://greenlightning.eu/nsdg ../nsdg.xml">
+	<block>gesamt = 0</block>
+	<block>gesamt25 = 0</block>
+	<block>gesamt50 = 0</block>
+	<loop condition="für zeile von 1 bis anzahlDatensätze">
+		<block>aktuelleArbeitszeit = arbeitszeit[zeile]</block>
+		<branch condition="ist aktuelleArbeitszeit \g 10?">
+			<left label="ja">
+				<block>gesamt = gesamt + 10</block>
+				<block>aktuelleArbeitszeit = 10</block>
+			</left>
+			<right label="nein">
+				<block>gesamt = gesamt + aktuelleArbeitszeit</block>
+			</right>
+		</branch>
+		<switch expression="aktuelleArbeitszeit - (37 / 5)">
+			<case label="\g 2">
+				<block>
+					gesamt50 =
+					gesamt50 + aktuelleArbeitszeit - (37 / 5 + 2)
+				</block>
+				<block>gesamt25 = gesamt25 + 2</block>
+			</case>
+			<case label="\g 0">
+				<block>
+					gesamt25 =
+					gesamt25 + aktuelleArbeitszeit - (37 / 5)
+				</block>
+			</case>
+			<default label="sonst" />
+		</switch>
+	</loop>
+</diagram>

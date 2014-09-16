@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+
+<diagram title="Datum" xmlns="http://greenlightning.eu/nsdg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://greenlightning.eu/nsdg ../nsdg.xml">
+	<block>Einlesen tag, monat, jahr</block>
+	<block>valid = true</block>
+	<switch expression="monat">
+		<case label="1, 3, 5, 7, 8, 10, 12">
+			<block>länge = 31</block>
+		</case>
+		<case label="4, 6, 9, 11">
+			<block>länge = 30</block>
+		</case>
+		<case label="2">
+			<branch condition="jahr % 4 == 0 \a\a\n(jahr % 100 != 0 ||\njahr % 400 == 0)">
+				<left label="ja">
+					<block>länge = 29</block>
+				</left>
+				<right label="nein">
+					<block>länge = 28</block>
+				</right>
+			</branch>
+		</case>
+		<default label="sonst">
+			<block>valid = false</block>
+		</default>
+	</switch>
+	<branch condition="tag \g= 1 \a\a tag \l= länge">
+		<left label="ja" />
+		<right label="nein">
+			<block>valid = false</block>
+		</right>
+	</branch>
+</diagram>

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+
+<diagram title="quick (a[], left, right)" xmlns="http://greenlightning.eu/nsdg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://greenlightning.eu/nsdg ../nsdg.xml">
+	<block>i = left, j = right</block>
+	<block>pivotelement = a[(left + right)/2]</block>
+	<loop type="test-last" condition="solange i \l= j">
+		<loop condition="solange a[i] \l pivotelement">
+			<block>i = i + 1</block>
+		</loop>
+		<loop condition="solange pivotelement \l a[j]">
+			<block>j = j - 1</block>
+		</loop>
+		<branch condition="i \l= j">
+			<left label="ja">
+				<block>hilf = a[i]</block>
+				<block>a[i] = a[j]</block>
+				<block>a[j] = hilf</block>
+				<block>i = i + 1, j = j - 1</block>
+			</left>
+			<right label="nein" />
+		</branch>
+	</loop>
+	<branch condition="left \l j">
+		<left label="ja">
+			<procedure>quick (a[], left, j)</procedure>
+		</left>
+		<right label="nein" />
+	</branch>
+	<branch condition="i \l right">
+		<left label="ja">
+			<procedure>quick (a[], i, right)</procedure>
+		</left>
+		<right label="nein" />
+	</branch>
+</diagram>

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<diagram title="Binary Search" xmlns="http://greenlightning.eu/nsdg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://greenlightning.eu/nsdg ../nsdg.xml">
+	<block>lg = 0</block>
+	<block>rg = n - 1</block>
+	<loop type="test-last" condition="bis a[k] = x ODER lg > rg">
+		<block>k = (lg + rg) INT 2</block>
+		<branch condition="x \g a[k]">
+			<left label="j">
+				<block>lg = k + 1</block>
+			</left>
+			<right label="n">
+				<block>rg = k - 1</block>
+			</right>
+		</branch>
+	</loop>
+</diagram>
