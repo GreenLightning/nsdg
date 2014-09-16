@@ -31,8 +31,7 @@ public class Text {
 		g.setColor(Color.BLACK);
 		int yOffset = g.getFontMetrics().getAscent();
 		for (String part : text) {
-			int xOffset = (width - g.getFontMetrics().stringWidth(part)) / 2;
-			g.drawString(part, x + xOffset, y + yOffset);
+			g.drawString(part, x, y + yOffset);
 			yOffset += g.getFontMetrics().getHeight();
 		}
 	}
