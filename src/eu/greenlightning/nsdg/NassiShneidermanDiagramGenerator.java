@@ -13,13 +13,22 @@ import eu.greenlightning.nsdg.xml.XMLParser;
 public class NassiShneidermanDiagramGenerator {
 
 	public static void main(String[] args) {
-		if (args.length != 1) {
+		if (args.length == 0) {
 			System.out.println("Usage: java -jar nsdg.jar <path-to-xml-file>");
 			System.out.println("Copyright © 2014 Green Lightning");
 			return;
 		}
 
-		Path path = Paths.get(args[0]);
+		for (int i = 0; i < args.length; i++) {
+			handle(args[i]);
+			System.out.println();
+		}
+	}
+
+	private static void handle(String argument) {
+		System.out.println("Handling '" + argument + "':");
+
+		Path path = Paths.get(argument);
 
 		if (!Files.exists(path)) {
 			System.out.println("The file '" + path + "' does not exist.");
@@ -31,7 +40,7 @@ public class NassiShneidermanDiagramGenerator {
 		try (XMLParser parser = new XMLParser(path)) {
 			diagram = parser.parseDiagram();
 		} catch (ParserException e) {
-			System.out.println(e.getMessage());
+			System.out.println("Error: " + e.getMessage());
 			return;
 		} catch (IOException | XMLStreamException e) {
 			System.out.println("An error occured while parsing the xml file.");
