@@ -22,7 +22,7 @@ public class Switch implements Element {
 	@Override
 	public int getWidth(Graphics2D g) {
 		int width = getLabelledWidth(g);
-		return width / 2 + Math.max(width / 2, expression.getWidth(g));
+		return Math.max(width, 10 + expression.getWidth(g) + 10);
 	}
 
 	private int getLabelledWidth(Graphics2D g) {
@@ -85,10 +85,12 @@ public class Switch implements Element {
 		g.drawRect(0, 0, width - 1, height - 1);
 		g.drawLine(0, 0, divider, titleHeight);
 		g.drawLine(divider, titleHeight, width - 1, 0);
-		double leftPercentage = (getCaseWidth(g) / 2.0) / getLabelledWidth(g);
-		double rightPercentage = (getCaseWidth(g) + getDefaultWidth(g) / 2.0) / getLabelledWidth(g);
-		int center = (int) ((leftPercentage + rightPercentage) * 0.5 * width);
-		expression.paint(g, center - expression.getWidth(g) / 2, 5);
+		if (defaultLabelled != null) {
+			expression.paint(g,
+				divider - (int) ((double) divider / width * expression.getWidth(g)), 5);
+		} else {
+			expression.paint(g, width - expression.getWidth(g) - 11, 5);
+		}
 		int labelHeight = 5 + expression.getHeight(g) + 5;
 		int offset = 0;
 		for (int i = 0; i < cases.size(); i++) {

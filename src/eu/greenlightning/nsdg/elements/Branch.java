@@ -20,16 +20,15 @@ public class Branch implements Element {
 
 	@Override
 	public int getWidth(Graphics2D g) {
-		return Math.max(getTitleWidth(g), getBlockWidth(g));
+		return Math.max(getConditionWidth(g), getLabelledWidth(g));
 	}
 
-	private int getTitleWidth(Graphics2D g) {
-		return 10 + left.getLabel().getWidth(g) + 10 + condition.getWidth(g) + 10
-			+ right.getLabel().getWidth(g) + 10;
+	private int getConditionWidth(Graphics2D g) {
+		return 10 + condition.getWidth(g) + 10;
 	}
 
-	private int getBlockWidth(Graphics2D g) {
-		return left.getChild().getWidth(g) + right.getChild().getWidth(g);
+	private int getLabelledWidth(Graphics2D g) {
+		return left.getWidth(g, 10) + right.getWidth(g, 10);
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class Branch implements Element {
 
 	@Override
 	public void paint(Graphics2D g, int width, int height) {
-		double leftPercentage = left.getChild().getWidth(g) / (double) getBlockWidth(g);
+		double leftPercentage = left.getChild().getWidth(g) / (double) getLabelledWidth(g);
 		int center = (int) (leftPercentage * width);
 		int titleHeight = getTitleHeight(g);
 		g.drawRect(0, 0, width - 1, height - 1);
