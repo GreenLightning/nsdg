@@ -1,3 +1,6 @@
 - License
 - Comments
 - User guide
+- Refactor
+- Branch
+- Switch
