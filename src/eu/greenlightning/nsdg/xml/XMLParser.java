@@ -66,7 +66,14 @@ public class XMLParser implements AutoCloseable {
 					throw new ParserException("Unknown child type: " + name);
 			}
 		}
-		return (children.size() == 1) ? children.get(0) : new Sequence(children);
+		switch (children.size()) {
+			case 0:
+				return new Empty();
+			case 1:
+				return children.get(0);
+			default:
+				return new Sequence(children);
+		}
 	}
 
 	private Element parseBlock() throws ParserException, XMLStreamException {
@@ -127,8 +134,8 @@ public class XMLParser implements AutoCloseable {
 			}
 		}
 		endElement("branch");
-		return new Branch(condition, left == null ? new Labelled() : left,
-			right == null ? new Labelled() : right);
+		return new Branch(condition, left == null ? new Labelled() : left, right == null ? new Labelled()
+			: right);
 	}
 
 	private Element parseSwitch() throws ParserException, XMLStreamException {
@@ -159,7 +166,7 @@ public class XMLParser implements AutoCloseable {
 	private Labelled parseLabelled(String name) throws ParserException, XMLStreamException {
 		String label = getAttribute("label");
 		startElement(name);
-		Element child = look().isStartElement() ? parseChild() : new Empty();
+		Element child = parseChild();
 		endElement(name);
 		return new Labelled(label, child);
 	}
@@ -174,8 +181,7 @@ public class XMLParser implements AutoCloseable {
 			case "infinite":
 				return parseInfiniteLoop();
 			default:
-				throw new ParserException(
-					"Loop type must be 'test-first', 'test-last' or 'infinite'.");
+				throw new ParserException("Loop type must be 'test-first', 'test-last' or 'infinite'.");
 		}
 	}
 
@@ -207,8 +213,7 @@ public class XMLParser implements AutoCloseable {
 
 	private void checkIsStartOfDocument() throws ParserException, XMLStreamException {
 		if (!look().isStartDocument()) {
-			throw new ParserException("Expected start of document, but found "
-				+ getEventDescription() + ".");
+			throw new ParserException("Expected start of document, but found " + getEventDescription() + ".");
 		}
 	}
 
@@ -221,8 +226,7 @@ public class XMLParser implements AutoCloseable {
 
 	private void checkIsEndOfDocument() throws ParserException, XMLStreamException {
 		if (!look().isEndDocument()) {
-			throw new ParserException("Expected end of document, but found "
-				+ getEventDescription() + ".");
+			throw new ParserException("Expected end of document, but found " + getEventDescription() + ".");
 		}
 	}
 
@@ -237,16 +241,16 @@ public class XMLParser implements AutoCloseable {
 
 	private void checkIsStartElement(String name) throws ParserException, XMLStreamException {
 		if (!look().isStartElement()) {
-			throw new ParserException("Expected start of " + name + ", but found "
-				+ getEventDescription() + ".");
+			throw new ParserException("Expected start of " + name + ", but found " + getEventDescription()
+				+ ".");
 		}
 	}
 
 	private void checkStartElementHasName(String name) throws ParserException, XMLStreamException {
 		String elementName = getNameOfStartElement();
 		if (!elementName.equals(name)) {
-			throw new ParserException("Expected start of " + name + ", but found start of "
-				+ elementName + ".");
+			throw new ParserException("Expected start of " + name + ", but found start of " + elementName
+				+ ".");
 		}
 	}
 
@@ -261,16 +265,15 @@ public class XMLParser implements AutoCloseable {
 
 	private void checkIsEndElement(String name) throws ParserException, XMLStreamException {
 		if (!look().isEndElement()) {
-			throw new ParserException("Expected end of " + name + ", but found "
-				+ getEventDescription() + ".");
+			throw new ParserException("Expected end of " + name + ", but found " + getEventDescription()
+				+ ".");
 		}
 	}
 
 	private void checkEndElementHasName(String name) throws ParserException, XMLStreamException {
 		String elementName = getNameOfEndElement();
 		if (!elementName.equals(name)) {
-			throw new ParserException("Expected end of " + name + ", but found end of "
-				+ elementName + ".");
+			throw new ParserException("Expected end of " + name + ", but found end of " + elementName + ".");
 		}
 	}
 
