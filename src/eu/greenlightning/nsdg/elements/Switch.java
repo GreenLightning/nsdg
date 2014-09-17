@@ -74,22 +74,17 @@ public class Switch implements Element {
 
 	@Override
 	public void paint(Graphics2D g, int width, int height) {
-		int divider;
-		if (defaultLabelled != null) {
-			double dividerPercentage = getCaseWidth(g) / (double) getLabelledWidth(g);
-			divider = (int) (width * dividerPercentage);
-		} else {
-			divider = width - 1;
-		}
+		double dividerPercentage = getCaseWidth(g) / (double) getLabelledWidth(g);
+		int divider = (int) (width * dividerPercentage);
 		int titleHeight = getTitleHeight(g);
-		g.drawRect(0, 0, width - 1, height - 1);
+		g.drawRect(0, 0, width, height);
 		g.drawLine(0, 0, divider, titleHeight);
-		g.drawLine(divider, titleHeight, width - 1, 0);
+		g.drawLine(divider, titleHeight, width, 0);
 		if (defaultLabelled != null) {
-			expression.paint(g,
-				divider - (int) ((double) divider / width * expression.getWidth(g)), 5);
+			int offset = (int) ((double) divider / width * expression.getWidth(g));
+			expression.paint(g, divider - offset, 5);
 		} else {
-			expression.paint(g, width - expression.getWidth(g) - 11, 5);
+			expression.paint(g, width - expression.getWidth(g) - 10, 5);
 		}
 		int labelHeight = 5 + expression.getHeight(g) + 5;
 		int offset = 0;
@@ -109,7 +104,7 @@ public class Switch implements Element {
 			g.translate(offset, titleHeight);
 			Text label = caseLabelled.getLabel();
 			label.paint(g, (caseWidth - label.getWidth(g)) / 2, -5 - label.getHeight(g));
-			caseLabelled.getChild().paint(g, caseWidth + 1, height - titleHeight);
+			caseLabelled.getChild().paint(g, caseWidth, height - titleHeight);
 			g.translate(-offset, -titleHeight);
 			offset += caseWidth;
 		}

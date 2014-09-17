@@ -12,7 +12,7 @@ public class Empty extends Block {
 	@Override
 	public void paint(Graphics2D g, int width, int height) {
 		g.setColor(Color.BLACK);
-		g.drawRect(0, 0, width - 1, height - 1);
+		g.drawRect(0, 0, width, height);
 		int x = (width - text.getWidth(g)) / 2;
 		int y = (height - text.getHeight(g)) / 2;
 		text.paint(g, x, y);

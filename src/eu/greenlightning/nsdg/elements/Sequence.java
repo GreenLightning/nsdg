@@ -40,7 +40,7 @@ public class Sequence implements Element {
 			g.translate(0, running);
 			child.paint(g, width, childHeight);
 			g.translate(0, -running);
-			running += childHeight - 1;
+			running += childHeight;
 		}
 		g.translate(0, running);
 		children.get(children.size() - 1).paint(g, width, height - running);

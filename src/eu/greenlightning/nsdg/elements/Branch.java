@@ -50,7 +50,7 @@ public class Branch implements Element {
 		double leftPercentage = left.getChild().getWidth(g) / (double) getLabelledWidth(g);
 		int center = (int) (leftPercentage * width);
 		int titleHeight = getTitleHeight(g);
-		g.drawRect(0, 0, width - 1, height - 1);
+		g.drawRect(0, 0, width, height);
 		g.drawLine(0, 0, center, titleHeight);
 		g.drawLine(center, titleHeight, width - 1, 0);
 		condition.paint(g, center - (int) (leftPercentage * condition.getWidth(g)), 5);
@@ -58,7 +58,7 @@ public class Branch implements Element {
 		left.getLabel().paint(g, 10, labelOffset);
 		right.getLabel().paint(g, width - 10 - right.getLabel().getWidth(g), labelOffset);
 		g.translate(0, titleHeight);
-		left.getChild().paint(g, center + 1, height - titleHeight);
+		left.getChild().paint(g, center, height - titleHeight);
 		g.translate(center, 0);
 		right.getChild().paint(g, width - center, height - titleHeight);
 		g.translate(-center, -titleHeight);

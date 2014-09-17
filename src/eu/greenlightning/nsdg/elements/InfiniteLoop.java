@@ -43,12 +43,12 @@ public class InfiniteLoop implements Element {
 		int topHeight = (int) (topPercentage * height);
 		int bottomHeight = (int) (bottomPercentage * height);
 		int sideWidth = (int) (sidePercentage * width);
-		g.drawRect(0, 0, width - 1, height - 1);
+		g.drawRect(0, 0, width, height);
 		top.paint(g, 10, (topHeight - top.getHeight(g)) / 2);
 		side.paint(g, 10, topHeight + (height - topHeight - bottomHeight - side.getHeight(g)) / 2);
 		bottom.paint(g, 10, height - bottomHeight + (bottomHeight - bottom.getHeight(g)) / 2);
 		g.translate(sideWidth, topHeight);
-		child.paint(g, width - sideWidth, height - topHeight - bottomHeight + 1);
+		child.paint(g, width - sideWidth, height - topHeight - bottomHeight);
 		g.translate(-sideWidth, -topHeight);
 	}
 

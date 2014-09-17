@@ -21,9 +21,9 @@ public class Procedure extends Block {
 	@Override
 	public void paint(Graphics2D g, int width, int height) {
 		g.setColor(Color.BLACK);
-		g.drawRect(0, 0, width - 1, height - 1);
-		g.drawLine(10, 0, 10, height - 1);
-		g.drawLine(width - 11, 0, width - 11, height - 1);
+		g.drawRect(0, 0, width, height);
+		g.drawLine(10, 0, 10, height);
+		g.drawLine(width - 10, 0, width - 10, height);
 		int x = (width - text.getWidth(g)) / 2;
 		int y = (height - text.getHeight(g)) / 2;
 		text.paint(g, x, y);

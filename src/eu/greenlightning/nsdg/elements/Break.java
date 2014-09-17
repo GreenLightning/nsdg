@@ -21,7 +21,7 @@ public class Break extends Block {
 	@Override
 	public void paint(Graphics2D g, int width, int height) {
 		g.setColor(Color.BLACK);
-		g.drawRect(0, 0, width - 1, height - 1);
+		g.drawRect(0, 0, width, height);
 		g.drawLine(10, 0, 0, height / 2);
 		g.drawLine(0, height / 2, 10, height - 1);
 		int x = 10 + (width - 10 - text.getWidth(g)) / 2;

@@ -23,14 +23,14 @@ public class TestLoop implements Element {
 	@Override
 	public int getWidth(Graphics2D g) {
 		int max = 0;
-		max = Math.max(max, condition.getWidth(g) + 20);
-		max = Math.max(max, side.getWidth(g) + 20 + child.getWidth(g));
+		max = Math.max(max, 10 + condition.getWidth(g) + 10);
+		max = Math.max(max, 10 + side.getWidth(g) + 10 + child.getWidth(g));
 		return max;
 	}
 
 	@Override
 	public int getHeight(Graphics2D g) {
-		int middle = Math.max(side.getHeight(g) + 10, child.getHeight(g));
+		int middle = Math.max(5 + side.getHeight(g) + 5, child.getHeight(g));
 		return 5 + condition.getHeight(g) + 5 + middle + 5;
 	}
 
@@ -40,7 +40,7 @@ public class TestLoop implements Element {
 		double sidePercentage = (10 + side.getWidth(g) + 10) / (double) getWidth(g);
 		int conditionHeight = (int) (conditionPercentage * height);
 		int sideWidth = (int) (sidePercentage * width);
-		g.drawRect(0, 0, width - 1, height - 1);
+		g.drawRect(0, 0, width, height);
 		if (testFirst) {
 			condition.paint(g, 10, (conditionHeight - condition.getHeight(g)) / 2);
 			side.paint(g, (sideWidth - side.getWidth(g)) / 2, conditionHeight

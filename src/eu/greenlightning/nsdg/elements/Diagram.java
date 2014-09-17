@@ -23,18 +23,18 @@ public class Diagram implements Element {
 	@Override
 	public int getWidth(Graphics2D g) {
 		if (hasTitle()) {
-			return 10 + Math.max(title.getWidth(g), child.getWidth(g)) + 10;
+			return 10 + Math.max(title.getWidth(g), child.getWidth(g)) + 1 + 10;
 		} else {
-			return 10 + child.getWidth(g) + 10;
+			return 10 + child.getWidth(g) + 1 + 10;
 		}
 	}
 
 	@Override
 	public int getHeight(Graphics2D g) {
 		if (hasTitle()) {
-			return 10 + title.getHeight(g) + 10 + child.getHeight(g) + 10;
+			return 10 + title.getHeight(g) + 10 + child.getHeight(g) + 1 + 10;
 		} else {
-			return 10 + child.getHeight(g) + 10;
+			return 10 + child.getHeight(g) + 1 + 10;
 		}
 	}
 
@@ -48,7 +48,7 @@ public class Diagram implements Element {
 			y += 10;
 		}
 		g.translate(x, y);
-		child.paint(g, width - x - 10, height - y - 10);
+		child.paint(g, width - x - 1 - 10, height - y - 1 - 10);
 		g.translate(-x, -y);
 	}
 
