@@ -1,6 +1,3 @@
 - License
 - Comments
 - User guide
-- Examples
-- Ant script
-- Tests

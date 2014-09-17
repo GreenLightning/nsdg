@@ -3,19 +3,19 @@
 <diagram title="Insertion Sort" xmlns="http://greenlightning.eu/nsdg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://greenlightning.eu/nsdg ../nsdg.xml">
-	<loop condition="für i = 1 bis n - 1, i = i + 1">
+	<loop condition="for i from 1 to n - 1">
 		<block>
-			wert = a[i]
+			value = a[i]
 			j = i
 		</block>
-		<loop condition="solange (j \g 0) und (a[j - 1] \g wert)">
+		<loop condition="while j \g 0 AND a[j - 1] \g value">
 			<block>
 				a[j] = a[j - 1]
 				j = j - 1
 			</block>
 		</loop>
 		<block>
-			a[j] = wert
+			a[j] = value
 		</block>
 	</loop>
 </diagram>

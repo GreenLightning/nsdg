@@ -3,14 +3,14 @@
 <diagram title="Selection Sort" xmlns="http://greenlightning.eu/nsdg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://greenlightning.eu/nsdg ../nsdg.xml">
-	<loop condition="für i = 0 bis n">
+	<loop condition="for i from 0 to n">
 		<block>m = i</block>
-		<loop condition="für j = i + 1 bis n">
+		<loop condition="for j from i + 1 to n">
 			<branch condition="a[j] \l a[m]">
-				<left label="j">
+				<left label="yes">
 					<block>m = j</block>
 				</left>
-				<right label="n" />
+				<right label="no" />
 			</branch>
 		</loop>
 		<block>

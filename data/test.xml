@@ -3,31 +3,44 @@
 <diagram title="Test" xmlns="http://greenlightning.eu/nsdg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://greenlightning.eu/nsdg nsdg.xml">
-	<branch condition="x == 0">
+	<block>Block!</block>
+	<procedure>Procedure!</procedure>
+	<break>Break!</break>
+	<branch condition="Condition?">
 		<left label="Yes">
-			<block>Block</block>
+			<block>Do something!</block>
 		</left>
 		<right label="No">
-			<procedure>Procedure</procedure>
-			<break>Break</break>
+			<block>Do something else!</block>
 		</right>
 	</branch>
-	<loop type="infinite" top="infinite loop" side="do" bottom="forever">
-		<block>X</block>
-	</loop>
-	<loop condition="for int i = 0; i \l 5; i++" side="do">
-		<switch expression="i">
-			<case label="1">
-				<block>Case 1 is really long.</block>
-			</case>
-			<case label="2" />
-			<case label="3" />
-			<default label="default" />
-		</switch>
-	</loop>
-	<switch expression="test">
-		<case label="0">
-			<block>test</block>
+	<switch expression="Some expression...">
+		<case label="1st label">
+			<block>1st block</block>
+		</case>
+		<case label="2nd label" />
+		<case />
+		<default label="default label">
+			<block>default block</block>
+		</default>
+	</switch>
+	<switch expression="Another expression...">
+		<case label="1st label">
+			<block>This switch</block>
+		</case>
+		<case label="2nd label">
+			<block>has no</block>
+		</case>
+		<case label="3rd label">
+			<block>default case.</block>
 		</case>
 	</switch>
+	<loop condition="test-first loop" side="text">
+		<block>content 1</block>
+		<block>content 2</block>
+	</loop>
+	<loop type="test-last" condition="test-last loop" side="text">
+		<block>content</block>
+	</loop>
+	<loop type="infinite" top="infinite loop" side="text" bottom="bottom text"/>
 </diagram>

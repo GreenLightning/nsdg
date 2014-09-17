@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+
+<diagram title="Date Validator" xmlns="http://greenlightning.eu/nsdg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://greenlightning.eu/nsdg ../nsdg.xml">
+	<block>read day, month, year</block>
+	<block>valid = true</block>
+	<switch expression="month">
+		<case label="1, 3, 5, 7, 8, 10, 12">
+			<block>length = 31</block>
+		</case>
+		<case label="4, 6, 9, 11">
+			<block>length = 30</block>
+		</case>
+		<case label="2">
+			<branch condition="year % 4 == 0 AND\n(year % 100 != 0 OR\nyear % 400 == 0)">
+				<left label="yes">
+					<block>length = 29</block>
+				</left>
+				<right label="no">
+					<block>length = 28</block>
+				</right>
+			</branch>
+		</case>
+		<default label="default">
+			<block>valid = false</block>
+		</default>
+	</switch>
+	<branch condition="day \g= 1 AND day \l= length">
+		<left label="yes" />
+		<right label="no">
+			<block>valid = false</block>
+		</right>
+	</branch>
+</diagram>

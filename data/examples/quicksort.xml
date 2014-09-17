@@ -4,34 +4,34 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://greenlightning.eu/nsdg ../nsdg.xml">
 	<block>i = left, j = right</block>
-	<block>pivotelement = a[(left + right)/2]</block>
-	<loop type="test-last" condition="solange i \l= j">
-		<loop condition="solange a[i] \l pivotelement">
-			<block>i = i + 1</block>
+	<block>pivot = a[(left + right)/2]</block>
+	<loop type="test-last" condition="while i \l= j">
+		<loop condition="while a[i] \l pivot">
+			<block>i++</block>
 		</loop>
-		<loop condition="solange pivotelement \l a[j]">
-			<block>j = j - 1</block>
+		<loop condition="while pivot \l a[j]">
+			<block>j--</block>
 		</loop>
 		<branch condition="i \l= j">
-			<left label="ja">
-				<block>hilf = a[i]</block>
+			<left label="yes">
+				<block>h = a[i]</block>
 				<block>a[i] = a[j]</block>
-				<block>a[j] = hilf</block>
-				<block>i = i + 1, j = j - 1</block>
+				<block>a[j] = h</block>
+				<block>i++; j--</block>
 			</left>
-			<right label="nein" />
+			<right label="no" />
 		</branch>
 	</loop>
 	<branch condition="left \l j">
-		<left label="ja">
+		<left label="yes">
 			<procedure>quick (a[], left, j)</procedure>
 		</left>
-		<right label="nein" />
+		<right label="no" />
 	</branch>
 	<branch condition="i \l right">
-		<left label="ja">
+		<left label="yes">
 			<procedure>quick (a[], i, right)</procedure>
 		</left>
-		<right label="nein" />
+		<right label="no" />
 	</branch>
 </diagram>
