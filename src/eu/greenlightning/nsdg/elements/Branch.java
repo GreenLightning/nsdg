@@ -61,7 +61,7 @@ public class Branch implements Element {
 
 	@Override
 	public void paint(Graphics2D g, int width, int height) {
-		double leftPercentage = left.getChild().getWidth(g) / (double) getLabelledWidth(g);
+		double leftPercentage = left.getWidth(g, 10) / (double) getLabelledWidth(g);
 		int center = (int) (leftPercentage * width);
 		int titleHeight = getTitleHeight(g);
 		g.drawRect(0, 0, width, height);
