@@ -1,3 +1,2 @@
-- License
 - Comments
 - User guide
