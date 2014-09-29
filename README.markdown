@@ -35,7 +35,7 @@ NSDG requires Java 7 to be properly installed and accessible from the command li
 
 ## Getting Started
 
-The latest release contains anything you need to use NSDG. Alongside the generator itself, it contains a user guide in English and in German as well as a bunch of examples including the selection sort algorithm from above. An xml schema is provided, too, and some xml editors can use that to validate your document and to propose content. (For more information on that, have a look at the user guide.)
+The [latest release](https://github.com/GreenLightning/nsdg/releases/latest) contains anything you need to use NSDG. Alongside the generator itself, it contains a user guide in English and in German as well as a bunch of examples including the selection sort algorithm from above. An xml schema is provided, too, which some xml editors can use to validate your document and to propose content. (For more information on that, have a look at the user guide.)
 
 After you have created the xml files, generating the diagrams becomes as easy as this:
 
